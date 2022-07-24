@@ -31,15 +31,15 @@ public class Booking extends BaseEntity {
     private long duration;
 
     @ManyToOne
-    @JoinColumn(name = "uuid")
+    @JoinColumn(name = "uuid", nullable = false, insertable = false, updatable = false)
     private Band band;
 
     @ManyToOne
-    @JoinColumn(name = "uuid")
+    @JoinColumn(name = "uuid", nullable = false, insertable = false, updatable = false)
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "uuid")
+    @JoinColumn(name = "uuid", nullable = false, insertable = false, updatable = false)
     private User booker;
 
     protected Booking() {

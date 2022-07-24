@@ -1,6 +1,7 @@
 package de.suborskar.yoyaku.backend.persistence.entities;
 import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
@@ -15,8 +16,10 @@ import java.util.UUID;
 @Getter
 public class BaseEntity {
     @Id
-    @GeneratedValue
-    @Column(name = "uuid", columnDefinition = "BINARY(16)")
+    @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
+    @GeneratedValue(generator = "UUIDGenerator")
+    @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false, insertable = false)
+    @org.hibernate.annotations.Type(type="pg-uuid")
     private UUID uuid;
 
     @CreationTimestamp
