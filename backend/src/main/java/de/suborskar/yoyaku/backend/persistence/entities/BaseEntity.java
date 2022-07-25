@@ -18,7 +18,7 @@ public class BaseEntity {
     @Id
     @GenericGenerator(name = "UUIDGenerator", strategy = "uuid2")
     @GeneratedValue(generator = "UUIDGenerator")
-    @Column(name = "uuid", columnDefinition = "BINARY(16)", updatable = false, nullable = false, insertable = false)
+    @Column(name = "id", updatable = false, nullable = false, insertable = false)
     @org.hibernate.annotations.Type(type="pg-uuid")
     private UUID uuid;
 

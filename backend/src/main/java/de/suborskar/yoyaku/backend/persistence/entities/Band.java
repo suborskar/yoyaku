@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -23,14 +24,14 @@ public class Band extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "genre_affiliation",
-            joinColumns = @JoinColumn(name = "band_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
+            joinColumns = @JoinColumn(name = "band_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
     private Set<Genre> genres;
 
-    @OneToMany(mappedBy = "band")
+    @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
     private Set<Booking> bookings;
 
     protected Band() {
@@ -49,7 +50,7 @@ public class Band extends BaseEntity {
     @Override
     public String toString() {
         return String.format(
-                "Band[id=%d, name='%s']",
-                getUuid(), name);
+                "Band[id=%s, name='%s']",
+                getUuid().toString(), name);
     }
 }

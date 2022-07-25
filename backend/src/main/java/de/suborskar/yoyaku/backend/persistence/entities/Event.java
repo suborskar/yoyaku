@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -21,13 +22,13 @@ public class Event extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "start", nullable = false)
+    @Column(name = "startdate", nullable = false)
     private LocalDate start;
 
-    @Column(name = "end", nullable = false)
+    @Column(name = "enddate", nullable = false)
     private LocalDate end;
 
-    @OneToMany(mappedBy = "event")
+    @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private Set<Booking> bookings;
 
     protected Event() {

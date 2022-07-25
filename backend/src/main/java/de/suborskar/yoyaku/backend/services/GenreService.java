@@ -1,0 +1,6 @@
+package de.suborskar.yoyaku.backend.services;
+
+import de.suborskar.yoyaku.backend.persistence.entities.Genre;
+
+public interface GenreService extends CrudService<Genre> {
+}
