@@ -4,7 +4,6 @@ package de.suborskar.yoyaku.backend.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -13,9 +12,10 @@ import java.util.UUID;
 public abstract class BaseDto {
     private UUID uuid;
 
-    private LocalDateTime createDateTime;
-
-    private LocalDateTime updateDateTime;
+    @Override
+    public int hashCode() {
+        return Objects.hash(uuid);
+    }
 
     @Override
     public boolean equals(final Object o) {
@@ -23,11 +23,6 @@ public abstract class BaseDto {
         if (o == null || getClass() != o.getClass()) return false;
         final BaseDto that = (BaseDto) o;
         return Objects.equals(uuid, that.uuid);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(uuid);
     }
 
     @Override
