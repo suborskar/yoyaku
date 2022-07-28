@@ -1,6 +1,7 @@
 package de.suborskar.yoyaku.backend.controllers.v1;
 
 import com.turkraft.springfilter.boot.Filter;
+import de.suborskar.yoyaku.backend.dto.BaseDto;
 import de.suborskar.yoyaku.backend.persistence.entities.BaseEntity;
 import de.suborskar.yoyaku.backend.services.CrudService;
 import org.springframework.data.domain.Page;
@@ -17,39 +18,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.UUID;
 
-public abstract class AbstractCrudController<E extends BaseEntity>{
+public abstract class AbstractCrudController<E extends BaseEntity, D extends BaseDto>{
     @GetMapping
-    public ResponseEntity<Page<E>> search(
+    public ResponseEntity<Page<D>> search(
             @Filter final Specification<E> spec,
             final Pageable pageable
     ) {
-        final Page<E> list = getService().getAll(spec, pageable);
+        final Page<D> list = getService().getAll(spec, pageable);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping("/{uuid}")
-    public ResponseEntity<E> get(@PathVariable("uuid") final UUID uuid) {
-        final E entity = getService().getById(uuid);
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+    public ResponseEntity<D> get(@PathVariable("uuid") final UUID uuid) {
+        final D dto = getService().getById(uuid);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<E> save(@RequestBody final E entity) {
-        final E savedEntity = getService().insert(entity);
+    public ResponseEntity<D> save(@RequestBody final D dto) {
+        final D savedEntity = getService().insert(dto);
         return new ResponseEntity<>(savedEntity,HttpStatus.CREATED);
     }
 
     @PutMapping()
-    public ResponseEntity<E> update(@RequestBody final E entity) {
-        getService().update(entity);
-        return new ResponseEntity<>(getService().getById(entity.getUuid()), HttpStatus.OK);
+    public ResponseEntity<D> update(@RequestBody final D dto) {
+        getService().update(dto);
+        return new ResponseEntity<>(getService().getById(dto.getUuid()), HttpStatus.OK);
     }
 
     @DeleteMapping({"/{uuid}"})
-    public ResponseEntity<E> delete(@PathVariable("uuid") final UUID uuid) {
+    public ResponseEntity<D> delete(@PathVariable("uuid") final UUID uuid) {
         getService().delete(uuid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    protected abstract CrudService<E> getService();
+    protected abstract CrudService<E, D> getService();
 }

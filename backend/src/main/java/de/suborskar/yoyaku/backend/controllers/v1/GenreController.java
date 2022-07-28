@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.controllers.v1;
 
+import de.suborskar.yoyaku.backend.dto.GenreDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Genre;
 import de.suborskar.yoyaku.backend.services.CrudService;
 import de.suborskar.yoyaku.backend.services.GenreService;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/genres")
-public class GenreController extends AbstractCrudController<Genre> {
+public class GenreController extends AbstractCrudController<Genre, GenreDto> {
     @Autowired
     private GenreService genreService;
     @Override
-    protected CrudService<Genre> getService() {
+    protected CrudService<Genre, GenreDto> getService() {
         return genreService;
     }
 }

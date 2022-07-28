@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.dto.GenreDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Genre;
 import de.suborskar.yoyaku.backend.persistence.repositories.GenreRepository;
 import de.suborskar.yoyaku.backend.services.GenreService;
@@ -11,9 +12,25 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class GenreServiceImpl extends AbstractCrudService<Genre> implements GenreService {
+public class GenreServiceImpl extends AbstractCrudService<Genre, GenreDto> implements GenreService {
     @Autowired
     private GenreRepository genreRepository;
+
+    @Override
+    protected GenreDto mapToDto(Genre entity) {
+        return null;
+    }
+
+    @Override
+    protected Genre mapToEntity(GenreDto dto) {
+        return null;
+    }
+
+    @Override
+    protected void mapToEntity(GenreDto dto, Genre entity) {
+
+    }
+
     @Override
     protected JpaRepository<Genre, UUID> getRepository() {
         return genreRepository;

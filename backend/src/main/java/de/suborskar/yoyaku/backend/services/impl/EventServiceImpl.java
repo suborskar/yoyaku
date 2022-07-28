@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.dto.EventDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Event;
 import de.suborskar.yoyaku.backend.persistence.repositories.EventRepository;
 import de.suborskar.yoyaku.backend.services.EventService;
@@ -11,9 +12,25 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-public class EventServiceImpl extends AbstractCrudService<Event> implements EventService {
+public class EventServiceImpl extends AbstractCrudService<Event, EventDto> implements EventService {
     @Autowired
     private EventRepository eventRepository;
+
+    @Override
+    protected EventDto mapToDto(Event entity) {
+        return null;
+    }
+
+    @Override
+    protected Event mapToEntity(EventDto dto) {
+        return null;
+    }
+
+    @Override
+    protected void mapToEntity(EventDto dto, Event entity) {
+
+    }
+
     @Override
     protected JpaRepository<Event, UUID> getRepository() {
         return eventRepository;
