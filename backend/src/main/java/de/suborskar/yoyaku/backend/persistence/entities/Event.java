@@ -37,9 +37,6 @@ public class Event extends BaseEntity {
     @OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
     private Set<Booking> bookings;
 
-    protected Event() {
-    }
-
     public String getName(final Locale locale) {
         return localizations.get(locale.getLanguage()).getName();
     }

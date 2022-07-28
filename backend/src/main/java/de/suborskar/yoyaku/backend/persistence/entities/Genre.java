@@ -1,6 +1,7 @@
 package de.suborskar.yoyaku.backend.persistence.entities;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -18,6 +19,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "genres")
 public class Genre extends BaseEntity {
     @OneToMany(mappedBy = "entity", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
@@ -35,8 +37,4 @@ public class Genre extends BaseEntity {
     public String getDescription(final Locale locale) {
         return localizations.get(locale.getLanguage()).getDescription();
     }
-
-    protected Genre() {
-    }
-
 }

@@ -42,9 +42,6 @@ public class Booking extends BaseEntity {
     @JoinColumn(name = "uuid", nullable = false, insertable = false, updatable = false)
     private User booker;
 
-    protected Booking() {
-    }
-
     public Booking(final BigDecimal fee, final String accommodation, final String contact, final LocalDateTime start, final long duration, final Band band, final Event event, final User booker) {
         this.fee = fee;
         this.accommodation = accommodation;

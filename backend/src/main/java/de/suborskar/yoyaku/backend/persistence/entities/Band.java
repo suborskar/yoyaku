@@ -43,9 +43,6 @@ public class Band extends BaseEntity {
     @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
     private Set<Booking> bookings;
 
-    protected Band() {
-    }
-
     public String getDescription(final Locale locale) {
         return localizations.get(locale.getLanguage()).getDescription();
     }
