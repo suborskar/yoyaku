@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/genres")
-public class GenreCrudController extends AbstractCrudController<Genre> {
+public class GenreController extends AbstractCrudController<Genre> {
     @Autowired
     private GenreService genreService;
     @Override
