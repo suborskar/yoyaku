@@ -2,8 +2,7 @@ package de.suborskar.yoyaku.backend.services.impl;
 
 import de.suborskar.yoyaku.backend.dto.GenreDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Genre;
-import de.suborskar.yoyaku.backend.persistence.entities.LocalizedGenre;
-import de.suborskar.yoyaku.backend.persistence.helpers.LocalizedId;
+import de.suborskar.yoyaku.backend.persistence.entities.I18NGenre;
 import de.suborskar.yoyaku.backend.persistence.repositories.GenreRepository;
 import de.suborskar.yoyaku.backend.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,7 @@ public class GenreServiceImpl extends AbstractCrudService<Genre, GenreDto> imple
 
     @Override
     protected Genre mapToEntity(final GenreDto dto) {
-        Genre entity = new Genre();
+        final Genre entity = new Genre();
         mapToEntity(dto, entity);
         return entity;
     }
@@ -40,7 +39,7 @@ public class GenreServiceImpl extends AbstractCrudService<Genre, GenreDto> imple
     @Override
     protected void mapToEntity(final GenreDto dto, final Genre entity) {
         final Locale currentLocale = LocaleContextHolder.getLocale();
-        LocalizedGenre localizedGenre = getLocalizedEntities(entity.getLocalizations(), entity, currentLocale.getLanguage(), LocalizedGenre::new);
+        final I18NGenre localizedGenre = getLocalizedEntities(entity.getLocalizations(), entity, currentLocale.getLanguage(), I18NGenre::new);
         localizedGenre.setName(dto.getName());
         localizedGenre.setDescription(dto.getDescription());
     }
