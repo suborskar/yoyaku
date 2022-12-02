@@ -1,41 +1,29 @@
 package de.suborskar.yoyaku.backend.persistence.entities;
 
+import de.suborskar.yoyaku.backend.persistence.helpers.LocalizedId;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.CascadeType;
-import javax.persistence.MapKey;
+import javax.persistence.EmbeddedId;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.stream.Collectors;
+import javax.persistence.MapsId;
 
+@Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
+@Getter
+@Setter
 @MappedSuperclass
-public class LocalizedBaseEntity<E extends BaseEntity, I extends I18NBaseEntity<E>> extends BaseEntity {
-    @OneToMany(mappedBy = "entity", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, orphanRemoval = true)
-    @MapKey(name = "localizedId.locale")
-    @Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
-    private Map<String, I> localizations = new HashMap<>();
+public abstract class LocalizedBaseEntity<E extends BaseEntity> {
+    @EmbeddedId
+    private LocalizedId localizedId;
 
-    public String getName(final Locale locale) {
-        return localizations.get(locale.getLanguage()).getName();
-    }
+    @ManyToOne
+    @MapsId("id")
+    @JoinColumn(name = "id")
+    private E entity;
 
-    public Map<String, String> getName() {
-        return localizations.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().getName()));
-    }
-
-    public String getDescription(final Locale locale) {
-        return localizations.get(locale.getLanguage()).getDescription();
-    }
-
-    public Map<String, String> getDescription() {
-        return localizations.entrySet().stream().collect(Collectors.toMap(e -> e.getKey(), e -> e.getValue().getDescription()));
-    }
-
-    public Map<String, I> getLocalizations() {
-        return localizations;
-    }
+    private String description;
 }

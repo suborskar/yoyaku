@@ -8,5 +8,6 @@ import javax.persistence.Entity;
 @Getter
 @Setter
 @Entity
-public class I18NGenre extends I18NBaseEntity<Genre> {
+public class LocalizedGenre extends LocalizedBaseEntity<Genre>{
+    private String name;
 }
