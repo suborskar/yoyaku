@@ -8,6 +8,5 @@ import javax.persistence.Entity;
 @Entity
 @Getter
 @Setter
-public class LocalizedEvent extends LocalizedBaseEntity<Event>{
-    private String name;
+public class I18NEvent extends I18NBaseEntity<Event> {
 }

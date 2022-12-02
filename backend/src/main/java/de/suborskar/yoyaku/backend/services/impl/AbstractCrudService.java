@@ -3,8 +3,7 @@ package de.suborskar.yoyaku.backend.services.impl;
 import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.BaseDto;
 import de.suborskar.yoyaku.backend.persistence.entities.BaseEntity;
-import de.suborskar.yoyaku.backend.persistence.entities.LocalizedBaseEntity;
-import de.suborskar.yoyaku.backend.persistence.entities.LocalizedGenre;
+import de.suborskar.yoyaku.backend.persistence.entities.I18NBaseEntity;
 import de.suborskar.yoyaku.backend.persistence.helpers.LocalizedId;
 import de.suborskar.yoyaku.backend.services.CrudService;
 import org.springframework.data.domain.Page;
@@ -17,7 +16,6 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public abstract class AbstractCrudService<E extends BaseEntity, D extends BaseDto> implements CrudService<E, D> {
@@ -49,8 +47,8 @@ public abstract class AbstractCrudService<E extends BaseEntity, D extends BaseDt
         getRepository().deleteById(uuid);
     }
 
-    protected <L extends LocalizedBaseEntity> L getLocalizedEntities(Map<String, L> localizedMap, E entity, String locale, Supplier<L> ctor) {
-        L localizedEntity;
+    protected <I extends I18NBaseEntity> I getLocalizedEntities(Map<String, I> localizedMap, E entity, String locale, Supplier<I> ctor) {
+        I localizedEntity;
         if (localizedMap.containsKey(locale)) {
             localizedEntity = localizedMap.get(locale);
         } else {
