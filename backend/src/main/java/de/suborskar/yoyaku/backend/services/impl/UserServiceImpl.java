@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.UserDto;
 import de.suborskar.yoyaku.backend.persistence.entities.User;
 import de.suborskar.yoyaku.backend.persistence.repositories.UserRepository;
@@ -17,21 +18,6 @@ public class UserServiceImpl extends AbstractCrudService<User, UserDto> implemen
     private UserRepository userRepository;
 
     @Override
-    protected UserDto mapToDto(User entity) {
-        return null;
-    }
-
-    @Override
-    protected User mapToEntity(UserDto dto) {
-        return null;
-    }
-
-    @Override
-    protected void mapToEntity(UserDto dto, User entity) {
-
-    }
-
-    @Override
     protected JpaRepository<User, UUID> getRepository() {
         return userRepository;
     }
@@ -39,5 +25,20 @@ public class UserServiceImpl extends AbstractCrudService<User, UserDto> implemen
     @Override
     protected JpaSpecificationExecutor<User> getSpecificationExecutor() {
         return userRepository;
+    }
+
+    @Override
+    protected Converter<User, UserDto> getConverter() {
+        return null;
+    }
+
+    @Override
+    protected UserDto createDto() {
+        return new UserDto();
+    }
+
+    @Override
+    protected User createEntity() {
+        return new User();
     }
 }

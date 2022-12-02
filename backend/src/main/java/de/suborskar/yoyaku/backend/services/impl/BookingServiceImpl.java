@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.BookingDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Booking;
 import de.suborskar.yoyaku.backend.persistence.repositories.BookingRepository;
@@ -17,21 +18,6 @@ public class BookingServiceImpl extends AbstractCrudService<Booking, BookingDto>
     private BookingRepository bookingRepository;
 
     @Override
-    protected BookingDto mapToDto(Booking entity) {
-        return null;
-    }
-
-    @Override
-    protected Booking mapToEntity(BookingDto dto) {
-        return null;
-    }
-
-    @Override
-    protected void mapToEntity(BookingDto dto, Booking entity) {
-
-    }
-
-    @Override
     protected JpaRepository<Booking, UUID> getRepository() {
         return bookingRepository;
     }
@@ -39,5 +25,20 @@ public class BookingServiceImpl extends AbstractCrudService<Booking, BookingDto>
     @Override
     protected JpaSpecificationExecutor<Booking> getSpecificationExecutor() {
         return bookingRepository;
+    }
+
+    @Override
+    protected Converter<Booking, BookingDto> getConverter() {
+        return null;
+    }
+
+    @Override
+    protected BookingDto createDto() {
+        return new BookingDto();
+    }
+
+    @Override
+    protected Booking createEntity() {
+        return new Booking();
     }
 }

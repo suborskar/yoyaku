@@ -2,6 +2,7 @@ package de.suborskar.yoyaku.backend.persistence.entities;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -22,6 +23,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "bands")
 public class Band extends BaseEntity {
 

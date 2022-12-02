@@ -3,10 +3,12 @@ package de.suborskar.yoyaku.backend.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
+
 @Getter
 @Setter
 public class GenreDto extends BaseDto{
-    private String name;
+    private Map<String, String> name;
 
-    private String description;
+    private Map<String, String> description;
 }

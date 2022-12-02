@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Getter
 @Setter
 public class EventDto extends BaseDto{
-    private String name;
+    private Map<String, String> name;
 
-    private String description;
+    private Map<String, String> description;
 
     private LocalDate start;
 

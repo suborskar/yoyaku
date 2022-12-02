@@ -1,9 +1,9 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.GenreDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Genre;
 import de.suborskar.yoyaku.backend.persistence.entities.LocalizedGenre;
-import de.suborskar.yoyaku.backend.persistence.helpers.LocalizedId;
 import de.suborskar.yoyaku.backend.persistence.repositories.GenreRepository;
 import de.suborskar.yoyaku.backend.services.GenreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +21,6 @@ public class GenreServiceImpl extends AbstractCrudService<Genre, GenreDto> imple
     private GenreRepository genreRepository;
 
     @Override
-    protected GenreDto mapToDto(final Genre entity) {
-        final Locale currentLocale = LocaleContextHolder.getLocale();
-        final GenreDto dto = new GenreDto();
-        dto.setUuid(entity.getUuid());
-        dto.setName(entity.getName(currentLocale));
-        dto.setDescription(entity.getDescription(currentLocale));
-        return dto;
-    }
-
-    @Override
-    protected Genre mapToEntity(final GenreDto dto) {
-        Genre entity = new Genre();
-        mapToEntity(dto, entity);
-        return entity;
-    }
-
-    @Override
-    protected void mapToEntity(final GenreDto dto, final Genre entity) {
-        final Locale currentLocale = LocaleContextHolder.getLocale();
-        LocalizedGenre localizedGenre = getLocalizedEntities(entity.getLocalizations(), entity, currentLocale.getLanguage(), LocalizedGenre::new);
-        localizedGenre.setName(dto.getName());
-        localizedGenre.setDescription(dto.getDescription());
-    }
-
-    @Override
     protected JpaRepository<Genre, UUID> getRepository() {
         return genreRepository;
     }
@@ -53,5 +28,20 @@ public class GenreServiceImpl extends AbstractCrudService<Genre, GenreDto> imple
     @Override
     protected JpaSpecificationExecutor<Genre> getSpecificationExecutor() {
         return genreRepository;
+    }
+
+    @Override
+    protected Converter<Genre, GenreDto> getConverter() {
+        return null;
+    }
+
+    @Override
+    protected GenreDto createDto() {
+        return new GenreDto();
+    }
+
+    @Override
+    protected Genre createEntity() {
+        return new Genre();
     }
 }

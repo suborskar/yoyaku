@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -11,7 +12,7 @@ import java.util.UUID;
 public class BandDto extends BaseDto {
     private String name;
 
-    private String description;
+    private Map<String, String> description;
 
     private List<UUID> genres;
 }

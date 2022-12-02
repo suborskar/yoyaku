@@ -1,9 +1,8 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.BandDto;
-import de.suborskar.yoyaku.backend.dto.BaseDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Band;
-import de.suborskar.yoyaku.backend.persistence.entities.BaseEntity;
 import de.suborskar.yoyaku.backend.persistence.repositories.BandRepository;
 import de.suborskar.yoyaku.backend.services.BandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +18,6 @@ public class BandServiceImpl extends AbstractCrudService<Band, BandDto> implemen
     private BandRepository bandRepository;
 
     @Override
-    protected BandDto mapToDto(final Band entity) {
-        return null;
-    }
-
-    @Override
-    protected Band mapToEntity(final BandDto dto) {
-        return null;
-    }
-
-    @Override
-    protected void mapToEntity(final BandDto dto, final Band entity) {
-
-    }
-
-    @Override
     protected JpaRepository<Band, UUID> getRepository() {
         return bandRepository;
     }
@@ -41,5 +25,20 @@ public class BandServiceImpl extends AbstractCrudService<Band, BandDto> implemen
     @Override
     protected JpaSpecificationExecutor<Band> getSpecificationExecutor() {
         return bandRepository;
+    }
+
+    @Override
+    protected Converter<Band, BandDto> getConverter() {
+        return null;
+    }
+
+    @Override
+    protected BandDto createDto() {
+        return new BandDto();
+    }
+
+    @Override
+    protected Band createEntity() {
+        return new Band();
     }
 }

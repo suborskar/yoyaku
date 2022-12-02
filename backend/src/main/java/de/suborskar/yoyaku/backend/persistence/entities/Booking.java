@@ -1,6 +1,7 @@
 package de.suborskar.yoyaku.backend.persistence.entities;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Table(name = "bookings")
 public class Booking extends BaseEntity {
     @Column(name = "fee")

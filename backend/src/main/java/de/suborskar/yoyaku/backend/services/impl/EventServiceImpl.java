@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.EventDto;
 import de.suborskar.yoyaku.backend.persistence.entities.Event;
 import de.suborskar.yoyaku.backend.persistence.repositories.EventRepository;
@@ -17,21 +18,6 @@ public class EventServiceImpl extends AbstractCrudService<Event, EventDto> imple
     private EventRepository eventRepository;
 
     @Override
-    protected EventDto mapToDto(Event entity) {
-        return null;
-    }
-
-    @Override
-    protected Event mapToEntity(EventDto dto) {
-        return null;
-    }
-
-    @Override
-    protected void mapToEntity(EventDto dto, Event entity) {
-
-    }
-
-    @Override
     protected JpaRepository<Event, UUID> getRepository() {
         return eventRepository;
     }
@@ -39,5 +25,20 @@ public class EventServiceImpl extends AbstractCrudService<Event, EventDto> imple
     @Override
     protected JpaSpecificationExecutor<Event> getSpecificationExecutor() {
         return eventRepository;
+    }
+
+    @Override
+    protected Converter<Event, EventDto> getConverter() {
+        return null;
+    }
+
+    @Override
+    protected EventDto createDto() {
+        return new EventDto();
+    }
+
+    @Override
+    protected Event createEntity() {
+        return new Event();
     }
 }

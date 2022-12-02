@@ -1,5 +1,6 @@
 package de.suborskar.yoyaku.backend.services.impl;
 
+import de.suborskar.yoyaku.backend.converter.Converter;
 import de.suborskar.yoyaku.backend.dto.BaseDto;
 import de.suborskar.yoyaku.backend.persistence.entities.BaseEntity;
 import de.suborskar.yoyaku.backend.persistence.entities.LocalizedBaseEntity;
@@ -40,7 +41,7 @@ public abstract class AbstractCrudService<E extends BaseEntity, D extends BaseDt
     public void update(final D dto) throws EntityNotFoundException {
         final Optional<E> entity = getRepository().findById(dto.getUuid());
         final E foundEntity = entity.orElseThrow(() -> new EntityNotFoundException("Could not update entity with " + entity.get().getUuid() + ". Does not exist"));
-        mapToEntity(dto, foundEntity);
+        getConverter().reverseConvert(dto, foundEntity);
         getRepository().save(foundEntity);
     }
     @Override
@@ -61,14 +62,26 @@ public abstract class AbstractCrudService<E extends BaseEntity, D extends BaseDt
         return localizedEntity;
     }
 
-    protected  abstract D mapToDto(E entity);
+    protected D mapToDto(E entity) {
+        D dto = createDto();
+        getConverter().convert(entity, dto);
+        return dto;
+    }
 
-    protected abstract E mapToEntity(D dto);
-
-    protected abstract void mapToEntity(D dto, E entity);
+    protected E mapToEntity(D dto) {
+        E entity = createEntity();
+        getConverter().reverseConvert(dto, entity);
+        return  entity;
+    }
 
 
     protected abstract JpaRepository<E, UUID> getRepository();
 
     protected abstract JpaSpecificationExecutor<E> getSpecificationExecutor();
+
+    protected abstract Converter<E, D> getConverter();
+
+    protected abstract D createDto();
+
+    protected abstract E createEntity();
 }
