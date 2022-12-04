@@ -14,7 +14,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 public abstract class AbstractEntityConverter<S extends BaseEntity, T extends BaseDto> implements Converter<S, T> {
-    protected <L> Map<String, String> getLocalizations(final Band source, final Function<L, String > getter) {
+    protected <L extends LocalizedBaseEntity<S>> Map<String, String> getLocalizations(final Band source, final Function<L, String > getter) {
         final Map<String, String> result = new HashMap<>();
         final Map<String, LocalizedBand> localizations = source.getLocalizations();
         for (final String locale : localizations.keySet()) {
@@ -24,8 +24,8 @@ public abstract class AbstractEntityConverter<S extends BaseEntity, T extends Ba
         return  result;
     }
 
-    protected <I extends LocalizedBaseEntity<S>> I getLocalizedEntities(Map<String, I> localizedMap, S entity, String locale, Supplier<I> ctor) {
-        I localizedEntity;
+    protected <L extends LocalizedBaseEntity<S>> L getLocalizedEntities(Map<String, L> localizedMap, S entity, String locale, Supplier<L> ctor) {
+        L localizedEntity;
         if (localizedMap.containsKey(locale)) {
             localizedEntity = localizedMap.get(locale);
         } else {

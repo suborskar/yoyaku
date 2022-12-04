@@ -3,6 +3,7 @@ package de.suborskar.yoyaku.backend.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -14,5 +15,5 @@ public class BandDto extends BaseDto {
 
     private Map<String, String> description;
 
-    private List<UUID> genres;
+    private List<UUID> genres = new ArrayList<>();
 }

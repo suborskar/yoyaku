@@ -2,6 +2,7 @@ package de.suborskar.yoyaku.backend.persistence.entities;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -16,12 +17,14 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @Table(name = "bands")
 public class Band extends BaseEntity {
 
@@ -38,7 +41,7 @@ public class Band extends BaseEntity {
             name = "genre_affiliation",
             joinColumns = @JoinColumn(name = "band_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
-    private Set<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
 
     @OneToMany(mappedBy = "band", fetch = FetchType.LAZY)
     private Set<Booking> bookings;
